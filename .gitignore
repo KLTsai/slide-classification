@@ -163,4 +163,6 @@ cython_debug/
 components/
 configuration/
 code/output/
+code/mmocr/
 *.html
+*.vscode
