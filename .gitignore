@@ -162,7 +162,10 @@ cython_debug/
 # for development
 components/
 configuration/
-code/output/
 code/mmocr/
+code/output/checkpoints/
+code/output/FewWordImg/
+code/output/mmocr_pre/
+code/output/PPTtoImg/
 *.html
 *.vscode
