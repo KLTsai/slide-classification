@@ -3,6 +3,7 @@ from PIL import Image
 from time import perf_counter
 import numpy as np
 from pathlib import Path
+import platform
 import datetime 
 import os
 from transformers import pipeline
@@ -22,7 +23,6 @@ def get_parser():
     parser.add_argument("--labels_json", "-la", type=str, default='backup_23148_4374.json', help='<labels json file name>')
     parser.add_argument("--checkpoints_dir", "-o", type=str, default='./output/checkpoints', help='<checkpoints directory (relative path)>')
     parser.add_argument("--perf_metrics_json", "-pm", type=str, default='perf_metrics.json', help='<performance metrics json file name>')
-    parser.add_argument("--op_s", "-os", type=str, default='win', help='<OS type (win or linux)>')
     parser.add_argument("--only_save_plot", "-sp", type=strtobool, default=True, help='<only_save_plot to the given "True" is without running performance evaluation from perf_metrics.json, as for "False", it will run both>')
     return parser
 
@@ -465,7 +465,7 @@ if __name__ == "__main__":
     checkpoints_dir = args.checkpoints_dir
     # Specify the path to the JSON file
     perf_metrics_json = args.perf_metrics_json
-    os_type = args.op_s
+    os_type = platform.system().lower()
     only_save_plot = args.only_save_plot
     device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
 
@@ -513,7 +513,7 @@ if __name__ == "__main__":
     if not only_save_plot:
 
         for path in ck_path:
-            if os_type == 'win':
+            if os_type == 'windows':
                 folder = path.split('\\')[-1]
             else:
                 folder = path.split('/')[-1]
