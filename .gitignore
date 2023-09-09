@@ -160,7 +160,7 @@ cython_debug/
 #.idea/
 
 # for development
-components/
+components/pptx_extracter.py
 configuration/
 code/output/checkpoints/
 code/output/FewWordImg/
