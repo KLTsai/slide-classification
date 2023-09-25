@@ -162,7 +162,6 @@ cython_debug/
 # for development
 components/pptx_extracter.py
 configuration/
-code/output/checkpoints/
 code/output/FewWordImg/
 code/output/mmocr_pre/
 code/output/PPTtoImg/
