@@ -13,8 +13,7 @@ logger.add(
 def load_model():
     # TODO: load model from model_path
 
-    os.chdir('./code')
-    MODEL = './output/checkpoints/a_mul_e6_s512_lr6e-6'
+    MODEL = './code/output/checkpoints/a_mul_e6_s512_lr6e-6'
     tokenizer = AutoTokenizer.from_pretrained(MODEL, cache_dir='./output/pretrained')
     feature_extractor = LayoutLMv3ImageProcessor(ocr_lang="eng+deu")
     processor = LayoutLMv3Processor(feature_extractor, tokenizer)

@@ -1,12 +1,21 @@
 import torch
+import os
 from PIL import Image
 from fastapi import FastAPI, UploadFile, File
 from components.preprocessing_helper import preprocess
 from components.setup_model import load_model
 from components.api_schemas import ResponseDict, PredictDict
+from loguru import logger
 from typing import List
 import uvicorn
 import io
+
+logger.add(
+    os.path.join(os.getcwd(), 'code', 'output', 'logs', 'setup_model.log'),
+    format = "{time:YYYY-MM-DD at HH:mm:ss} | {level} | {message}",
+    backtrace = True,
+    diagnose = True
+)
 
 # Start up app
 app = FastAPI()
@@ -46,17 +55,20 @@ async def cls_score(files: List[UploadFile] = File(...)):
         img = Image.open(io.BytesIO(request_object_content))
         img_list.append(img)
     
+    logger.info(f'preprocessing image')
     encoded_inputs = preprocess(img_list, processor)
 
     # Process input images - make required strings subs and tokenize
     # encoding = tokenizer(words, boxes=boxes, return_tensors="pt")
 
-
+    logger.info(f'running model')
     # Run through model and normalize
     outputs = model(input_ids = encoded_inputs['input_ids'], 
                     attention_mask = encoded_inputs['attention_mask'], 
                     bbox = encoded_inputs['bbox'])
     
+    logger.info(f'inference done')
+
     logits = outputs.logits
     
     prob_torch = torch.softmax(logits, dim=1)
@@ -80,18 +92,20 @@ async def cls_score(files: List[UploadFile] = File(...)):
 @app.get('/cls_score/predict/', response_model=PredictDict)
 def cls_score_predict():
     global prob_torch
-
-    # print(prob_torch.argmax(-1).tolist())
-
-    predicted_cls_idx_list = prob_torch.argmax(-1).tolist()
-    predicted_cls_score_list = prob_torch.max(-1).values.tolist()
-    predicted_cls_list = [model.config.id2label[idx] for idx in predicted_cls_idx_list]
-    output_list = []
     
-    for cls, score in zip(predicted_cls_list, predicted_cls_score_list):
-        output_list.append({cls: score})
-
-
+    try:
+        predicted_cls_idx_list = prob_torch.argmax(-1).tolist()
+        predicted_cls_score_list = prob_torch.max(-1).values.tolist()
+        predicted_cls_list = [model.config.id2label[idx] for idx in predicted_cls_idx_list]
+        logger.info(f'Number of files: {len(predicted_cls_list)}')
+        output_list = []
+        
+        for cls, score in zip(predicted_cls_list, predicted_cls_score_list):
+            output_list.append({'label':cls, 'score': score})
+            
+    except AttributeError as e:
+        logger.error(f'AttributeError: {e}')
+        output_list = []
 
     return {"output": output_list}
 
