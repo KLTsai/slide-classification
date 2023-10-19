@@ -12,16 +12,19 @@ logger.add(
 
 def load_model():
     # TODO: load model from model_path
-
-    MODEL = './code/output/checkpoints/a_mul_e6_s512_lr6e-6'
-    tokenizer = AutoTokenizer.from_pretrained(MODEL, cache_dir='./output/pretrained')
+    MODEL = 'kungeer/adv_offerslide_mul_lilt_v0.0'
+    # MODEL = './code/output/checkpoints/a_mul_e6_s256_lr6e-6'
+    tokenizer = AutoTokenizer.from_pretrained(MODEL, 
+                                            #   use_auth_token=, 
+                                              cache_dir='./output/pretrained')
     feature_extractor = LayoutLMv3ImageProcessor(ocr_lang="eng+deu")
     processor = LayoutLMv3Processor(feature_extractor, tokenizer)
-    model = AutoModelForSequenceClassification.from_pretrained(MODEL, cache_dir='./output/pretrained')
-    logger.info(f'Model Load Success!')
-    return tokenizer, processor, model
+    classifier = AutoModelForSequenceClassification.from_pretrained(MODEL, 
+                                                                    # use_auth_token=, 
+                                                                    cache_dir='./output/pretrained')
+    logger.info('Model Load Success!')
+    return tokenizer, processor, classifier
 
-if __name__ == '__main__':
-    
-    tokenizer, processor, model = load_model()
+if __name__ == '__main__': 
+    tokenizer_, processor_, classifier_ = load_model()
     print('main model loaded')
