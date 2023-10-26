@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from PIL import Image
-from typing import List
+from typing import List, Union
 
 
 # Define input and output schema
@@ -50,7 +50,7 @@ class ResponseDict(BaseModel):
         }
 
 class PredictDict(BaseModel):
-    output: List[dict[str, str]]
+    output: List[dict[str, Union[str, float]]]
 
     # For example
     class Config:
