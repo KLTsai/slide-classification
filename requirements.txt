@@ -24,7 +24,7 @@ pytorch_sphinx_theme==0.0.19
 PyYAML==6.0.1
 rapidfuzz==3.2.0
 rich==13.6.0
-scipy==1.9.1
+scipy==1.10.0
 seaborn==0.13.0
 setuptools==66.0.0
 Shapely==2.0.2
@@ -33,6 +33,6 @@ tabulate==0.9.0
 titlecase==2.4.1
 torch==2.0.0
 torchvision==0.15.1
-transformers==4.28.1
+transformers==4.30.0
 uvicorn==0.23.2
 python-multipart==0.0.6
