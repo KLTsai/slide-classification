@@ -1,7 +1,7 @@
 boto3==1.28.66
 botocore==1.31.66
 django_haystack==3.2.1
-fastapi==0.104.0
+fastapi==0.109.1
 fvcore==0.1.5.post20221221
 imgaug==0.4.0
 lanms==1.0.2

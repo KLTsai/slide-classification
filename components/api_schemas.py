@@ -2,7 +2,6 @@ from pydantic import BaseModel
 from PIL import Image
 from typing import List, Union
 
-
 # Define input and output schema
 class Cls_Input(BaseModel):
     input_path_list: List[str]
@@ -10,7 +9,6 @@ class Cls_Input(BaseModel):
 
 class ResponseDict(BaseModel):
     output: dict[str, dict[str, float]]
-
 
     # For example
     class Config:
@@ -58,11 +56,11 @@ class PredictDict(BaseModel):
             "output": [
                         {
                             "label": "Competencies",
-                            "score": "0.9584630131721497"
+                            "score": 0.9584630131721497
                         },
                         {
                             "label": "Consultant Profile",
-                            "score": "0.9909632802009583"
+                            "score": 0.9909632802009583
                         }
                 ]
 
