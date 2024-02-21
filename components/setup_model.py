@@ -53,13 +53,11 @@ def load_model():
 
 
     tokenizer = AutoTokenizer.from_pretrained(download_path, 
-                                            #   use_auth_token='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', 
                                               cache_dir='./code/output/pretrained')
 
     feature_extractor = LayoutLMv3ImageProcessor(ocr_lang="eng+deu")
     processor = LayoutLMv3Processor(feature_extractor, tokenizer)
     classifier = AutoModelForSequenceClassification.from_pretrained(download_path, 
-                                                                    # use_auth_token='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', 
                                                                     cache_dir='./code/output/pretrained')
     logger.info('Model Load Success!')
     return tokenizer, processor, classifier
