@@ -9,15 +9,17 @@ This project leverages a machine learning solution to automatically classify pre
 - Integrate textual and visual information for slide classification.
 - Evaluate and compare baseline and advanced machine learning models.
 - Conclude optimal parameters combination for baseline and advanced approaches.
-- Integrated CI/CD pipeline  into an application
+- Established docker script for CI/CD pipeline.
 
 ## Key Tool & Libraries Used
 
 - [`python_pptx`](https://python-pptx.readthedocs.io/en/latest/) for handling presentation slides (.pptx)
+- [`plotly`](https://github.com/plotly/plotly.py) & [`seaborn`](https://seaborn.pydata.org/tutorial.html) for exploratory data analysis.
+- [`NLTK`](https://www.nltk.org/) for nature language processing.
 - [`sklearn`](https://github.com/scikit-learn/scikit-learn) for feature extraction and selection, baseline classifier, and model evaluation, etc.
 - Used text dection algorithms by [`mmocr`](https://github.com/open-mmlab/mmocr) for visual preprocessing.
-- [`torch`](https://github.com/pytorch/pytorch) for machine learning model development.
-- 🤗 [`transformers`](https://huggingface.co/models) for pre-trained model leveraging.
+- [`torch`](https://github.com/pytorch/pytorch) for deep learning model development.
+- 🤗 [`Transformers`](https://huggingface.co/models) for pre-trained model leveraging.
 
 ## Dataset
 
@@ -38,10 +40,19 @@ The dataset for analyzing the offer reference contains 26,485 slide images (size
 |Initial Situation|3|86|
 
 
-## Methodology
+## Techniques Covered
 
-- **Slide Preprocessing**: Techniques used to prepare slides for classification.
+- **Feature Processing For Baseline Approach**: Three modalities to obtain rich information from presentation slides are **text**, **vision**, and **multi-modal**.
+
+| Approach  | Modalities  | Feature Extraction               | Feature Selection |
+|-----------|-------------|----------------------------------|-------------------|
+| baseline | Text        | bag of words, TF-IDF             | chi-square test   |
+| baseline  | Vision      | shape types as feature vector    | chi-square test   |
+| baseline  | Multi-modal | feature union (Text & Vision)    | chi-square test   |
+
+
 - **Model Development**: Description of baseline and advanced approaches, including text-based, vision-based, and multi-modal models.
+
 - **Performance Metrics**: Criteria for evaluating model performance.
 
 ## Experiments and Results
