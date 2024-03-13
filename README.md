@@ -50,14 +50,19 @@ The dataset for analyzing the offer reference contains 26,485 slide images (size
 | baseline  | Vision      | shape types as feature vector    | chi-square test   |
 | baseline  | Multi-modal | feature union (Text & Vision)    | chi-square test   |
 
+- **Model Development**: Leveraging advanced approaches with Transformers, including text-based, vision-based, and multi-modal models.
 
-- **Model Development**: Description of baseline and advanced approaches, including text-based, vision-based, and multi-modal models.
+| Model Name | Modality | Sequence Manipulation |Pretrained Model|
+| :-- | :-- |:--|:--|
+|BERT |Text| split sequence into pieces|[`bert-base-multilingual-cased`](https://huggingface.co/google-bert/bert-base-multilingual-cased)|
+|ViT| Vision| geometry processing|[`vit-large-patch16-384`](https://huggingface.co/google/vit-large-patch16-384)|
+|LiLT|Multi-modal| bi-directional attention complementation mechanism|[`lilt-xlm-roberta-base`](https://huggingface.co/nielsr/lilt-xlm-roberta-base)|
 
-- **Performance Metrics**: Criteria for evaluating model performance.
+- **Performance Metrics**: Criteria for evaluating model performance such as F1-Score, Precision, Recall, Average Latency.
 
 ## Experiments and Results
 
-Overview of experimental setup, model training, and evaluation results. Highlights the superiority of multi-modal information processing in slide classification tasks.
+Overview of experimental setup, model fine-tuning, and evaluation results. Highlights the superiority of multi-modal information processing in slide classification tasks.
 
 ![alt text](code/output/others/all_models_perf_cluster.png)
 
