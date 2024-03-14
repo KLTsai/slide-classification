@@ -74,6 +74,38 @@ Overview of experimental setup, model fine-tuning, and evaluation results. Highl
 ``` terminal
 pip install requirements.txt
 ```
+then verify configuration of parameters in `advance_slide_modeling.ipynb`, `advanced_slide_modeling_visual.ipynb`, `advanced_slide_modeling_multimodal.ipynb`
+
+- Please refer to the following parameter table for fine-tuning Transformer models:
+
+| Models            | Sequence Length | Batch | Learning Rate | Epoch |
+|-------------------|-----------------|-------|---------------|-------|
+| BERT_Seq+Dense    | 128             | 16    | 1.3E-05       | 5     |
+| BERT_Seq+Dense    | 128             | 16    | 4.0E-05       | 3     |
+| BERT_Seq+Dense    | 128             | 16    | 5.0E-05       | 6     |
+| BERT_Seq+Dense    | 256             | 16    | 1.3E-05       | 5     |
+| BERT_Seq+Dense    | 256             | 16    | 4.0E-05       | 6     |
+| BERT_Seq+Dense    | 256             | 16    | 5.0E-05       | 6     |
+| BERT_Seq+Dense    | 512             | 16    | 1.3E-05       | 6     |
+| BERT_Seq+Dense    | 512             | 16    | 4.0E-05       | 6     |
+| BERT_Seq+Dense    | 512             | 16    | 5.0E-05       | 4     |
+| ViT_Mono+Dense    | :x:             | 4     | 1.4E-04       | 6     |
+| ViT_Mono+Dense    | :x:             | 4     | 2.5E-04       | 9     |
+| ViT_Mono+Dense    | :x:             | 4     | 2.5E-05       | 6     |
+| ViT_Color+Dense   | :x:             | 4     | 1.4E-04       | 6     |
+| ViT_Color+Dense   | :x:             | 4     | 2.5E-04       | 9     |
+| ViT_Color+Dense   | :x:             | 4     | 2.5E-05       | 6     |
+| LiLT_Seq+Dense    | 128             | 8    | 2.0E-06       | 6     |
+| LILT_Seq+Dense    | 128             | 8    | 4.0E-06       | 6     |
+| LILT_Seq+Dense    | 128             | 8    | 6.0E-06       | 6     |
+| LiLT_Seq+Dense    | 256             | 8    | 2.0E-06       | 6     |
+| LILT_Seq+Dense    | 256             | 8    | 4.0E-06       | 6     |
+| LILT_Seq+Dense    | 256             | 8    | 6.0E-06       | 6     |
+| LiLT_Seq+Dense    | 512             | 8    | 4.0E-05       | 5     |
+| LILT_Seq+Dense    | 512             | 8    | 2.0E-06       | 6     |
+| LILT_Seq+Dense    | 512             | 8    | 6.0E-06       | 6     |
+
+
 
 Instructions on how to set up the environment, train the models, and classify new slides.
 
