@@ -39,6 +39,7 @@ The dataset for analyzing the offer reference contains 26,485 slide images (size
 |Target Situation|8|103|
 |Initial Situation|3|86|
 
+> **_NOTE:_** This offer slide dataset is considered a confidential asset and is not available for public use at this time
 
 ## Techniques Covered
 
@@ -67,6 +68,12 @@ Overview of experimental setup, model fine-tuning, and evaluation results. Highl
 ![alt text](code/output/others/all_models_perf_cluster.png)
 
 ## How to Use
+
+- Before running the code, you sholud set up the enviroment we needed by entering the following command into the terminal:
+
+``` terminal
+pip install requirements.txt
+```
 
 Instructions on how to set up the environment, train the models, and classify new slides.
 
