@@ -9,7 +9,7 @@ This project leverages a machine learning solution to automatically classify pre
 - Integrate textual and visual information for slide classification.
 - Evaluate and compare baseline and advanced machine learning models.
 - Conclude optimal parameters combination for baseline and advanced approaches.
-- Established docker script for CI/CD pipeline.
+- Establish docker script for CI/CD pipeline.
 
 ## Key Tool & Libraries Used
 
