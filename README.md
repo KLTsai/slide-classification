@@ -39,7 +39,7 @@ The dataset for analyzing the offer reference contains 26,485 slide images (size
 |Target Situation|8|103|
 |Initial Situation|3|86|
 
-> **_NOTE:_** This offer slide dataset is considered a confidential asset and is not available for public use at this time
+> **_NOTE:_** This offer reference dataset is considered a confidential asset and is not available for public use at this time.
 
 ## Techniques Covered
 
@@ -55,7 +55,7 @@ The dataset for analyzing the offer reference contains 26,485 slide images (size
 
 | Model Name | Modality | Sequence Manipulation |Pretrained Model|
 | :-- | :-- |:--|:--|
-|BERT |Text| split sequence into pieces|[`bert-base-multilingual-cased`](https://huggingface.co/google-bert/bert-base-multilingual-cased)|
+|BERT |Text| split sequence into pieces for long texts|[`bert-base-multilingual-cased`](https://huggingface.co/google-bert/bert-base-multilingual-cased)|
 |ViT| Vision| geometry processing|[`vit-large-patch16-384`](https://huggingface.co/google/vit-large-patch16-384)|
 |LiLT|Multi-modal| bi-directional attention complementation mechanism|[`lilt-xlm-roberta-base`](https://huggingface.co/nielsr/lilt-xlm-roberta-base)|
 
@@ -65,7 +65,46 @@ The dataset for analyzing the offer reference contains 26,485 slide images (size
 
 Overview of experimental setup, model fine-tuning, and evaluation results. Highlights the superiority of multi-modal information processing in slide classification tasks.
 
+### Multi-Class Classification Results
+Our advanced approach (Adv) utilizes three Transformer-based models with each distinct modality. We can assess the variance between predicted and actual class distribution using cross-entropy. To analyze the training learning curves across various modalities, we divide the results based on sequence length or the number of channels. Then, we only select the combinations of hyperparameters with the three lowest validation losses and consider them as the best candidates for optimal parameter configuration. There are different combinations of hyperparameters for advanced approaches for each modality comprising epochs (e), batch size (b), sequence lengths (s), learning rate (lr), grayscale (mono), and RGB(rgb) (see legend labels in [below scatter plot](#accuracy-latency-in-classification-models)). Finally, we choose the optimal combinations of hyperparameters for each modality by comparing validation losses and classification performance from the test set in the analysis of classification results.
+
+ | Transformer Model (sequence length / channel) | Batch | Learning Rate | Epoch | Validation Accuracy | Validation Loss | Test Accuracy | F1-Score (marco) |
+|------------------------------------------------|-------|---------------|-------|---------------------|-----------------|---------------|------------------|
+ | **BERT_128**                                       | **16**    | **1.3e-05**       | **5**     | **0.9173**              | **0.3275**          | **0.8969**        |**0.8847**           |
+| BERT_128                                       | 16    | 4.0e-05       | 3     | 0.8915              | 0.4840          | 0.9072        | 0.8902           |
+| BERT_128                                       | 16    | 5.0e-05       | 6     | 0.8837              | 0.5498          | 0.8943        | 0.8880           |
+| BERT_256                                       | 16    | 1.3e-05       | 5     | 0.9193              | 0.3036          | 0.9098        | 0.8741           |
+ | BERT_256                                       | 16    | 4.0e-05       | 6     | 0.9251              | 0.3507          | 0.8686        | 0.8640           |
+ | BERT_256                                       | 16    | 5.0e-05       | 6     | 0.9267              | 0.3553          | 0.8582        | 0.8472           |
+ | BERT_512                                       | 16    | 1.3e-05       | 6     | 0.9380              | 0.2738          | 0.8943        | 0.8805           |
+| BERT_512                                       | 16    | 4.0e-05       | 6     | 0.9328              | 0.3020          | 0.8840        | 0.8625           |
+| BERT_512                                       | 16    | 5.0e-05       | 4     | 0.9251              | 0.3378          | 0.8814        | 0.8735           |
+ | ViT_mono                                       | 4     | 1.4e-04       | 6     | 0.8271              | 0.5961          | 0.7851        | 0.6599           |
+ | ViT_mono                                       | 4     | 2.5e-04       | 9     | 0.7394              | 0.7981          | 0.7533        | 0.6440           |
+ | ViT_mono                                       | 4     | 2.5e-05       | 6     | 0.9415              | 0.2724          | 0.9178        | 0.8680           |
+ | **ViT_rgb**                                        | **4**     | **1.4e-04**       | **6**     | **0.9628**              | **0.2031**          | **0.9523**        | **0.9300**           |
+  | ViT_rgb                                        | 4     | 2.5e-04       | 8     | 0.9229              | 0.3833          | 0.9098        | 0.8864           |
+ | ViT_rgb                                        | 4     | 2.5e-05       | 5     | 0.9441              | 0.3045          | 0.939         | 0.9196           |
+| LiLT_128                                       | 8     | 2.0e-06       | 6     | 0.9311              | 0.4233          | 0.9284        | 0.9231           |
+  | LiLT_128                                       | 8     | 4.0e-06       | 6     | 0.9521              | 0.2401          |  0.9469        | 0.9516          |
+ | LiLT_128                                       | 8     | 6.0e-06       | 6     | 0.9521              | 0.2557          | 0.9549        | 0.9614           |
+  | LiLT_256                                       | 8     | 2.0e-06       | 6     | 0.9335              | 0.4066          | 0.9231        | 0.9227           |
+  | LiLT_256                                       | 8     | 4.0e-06       | 6     | 0.9548              | 0.2301          | 0.9549        | 0.9606           |
+  | LiLT_256                                       | 8     | 6.0e-06       | 6     | 0.9601              | 0.2267          | 0.9655        | 0.9718           |
+  | LiLT_512                                       | 8     | 4.0e-05       | 5     | 0.8936              | 0.2397          | 0.9151        | 0.9599           |
+  | LiLT_512                                       | 8     | 2.0e-06       | 6     | 0.9335              | 0.3974          | 0.9601        | 0.8997           |
+   | **LiLT_512**                                       | **8**     | **6.0e-06**       | **6**     | **0.9441**              | **0.2124**          | **0.9602**        | **0.9657**           |
+
+> **_NOTE:_** Given entries with bold indicate optimal parameters are selected for each modality.
+
+
+### Accuracy-Latency in Classification Models
+
+Established *warmup* and *timed run iterations* at 10 and 100 times, respectively. We determine the average and standard deviation of latency to serve as a standard for assessing model inference time to make a plot with its accuracy.
+
 ![alt text](code/output/others/all_models_perf_cluster.png)
+
+> **_NOTE:_** Dash circles represent optimal parameter combinations in each modality.
 
 ## How to Use
 
@@ -105,18 +144,6 @@ then verify configuration of parameters in `advance_slide_modeling.ipynb`, `adva
 | LILT_Seq+Dense    | 512             | 8    | 2.0E-06       | 6     |
 | LILT_Seq+Dense    | 512             | 8    | 6.0E-06       | 6     |
 
+> **_NOTE:_** Since ViT model allows each image is split into a sequence of fixed-size non-overlapping patches, it does not provide a sequence length adjustment parameter.
 
-
-Instructions on how to set up the environment, train the models, and classify new slides.
-
-## Contributing
-
-Guidelines for contributing to the project, including how to submit issues and pull requests.
-
-## License
-
-Details of the project's license.
-
-## Acknowledgments
-
-Gratitude expressed towards advisors, contributors, and any supporting institutions.
+Following instructions on the table of contents in notebooks then obtain results of fine-tuning, users can select an ideal fine-tuned model for deployment after evaluations.
